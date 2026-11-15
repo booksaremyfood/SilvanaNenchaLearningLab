@@ -1,0 +1,1573 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description"
+        content="Silvana Nencha: instructional design, digital learning development and AI agents. Explore an interactive studio or read the full professional profile.">
+    <title>Silvana Nencha — The Learning Studio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+        :root {
+            --ink: #302843;
+            --paper: #fbf8f1;
+            --muted: #796c84;
+            --line: #d9cce3;
+            --purple: #cab7f5;
+            --lime: #e2efa9
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 85px
+        }
+
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font: 14px/1.65 'DM Sans', system-ui, sans-serif
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand,
+        .kicker {
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            line-height: 1.12
+        }
+
+        button {
+            font: inherit;
+            color: inherit;
+            cursor: pointer
+        }
+
+        button,
+        a {
+            touch-action: manipulation
+        }
+
+        a {
+            color: inherit
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid #7550b2;
+            outline-offset: 5px
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 9;
+            border-bottom: 1px solid var(--line);
+            background: #fbf8f1f5;
+            backdrop-filter: blur(12px)
+        }
+
+        nav {
+            max-width: 1320px;
+            margin: auto;
+            padding: 15px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px
+        }
+
+        .brand {
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: 700
+        }
+
+        .brand small {
+            display: block;
+            font: 9px 'DM Sans', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 3px
+        }
+
+        .navlinks {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            font-size: 11px
+        }
+
+        .navlinks a {
+            text-decoration: none
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1.5px solid #79628c;
+            border-radius: 8px;
+            padding: 10px 16px;
+            background: var(--ink);
+            color: white;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            box-shadow: 3px 3px 0 #cbbbda;
+            transition: transform .15s
+        }
+
+        .btn:hover {
+            transform: translateY(-2px)
+        }
+
+        .btn.light {
+            background: white;
+            color: var(--ink)
+        }
+
+        .wrap {
+            max-width: 1240px;
+            margin: auto;
+            padding: 0 28px
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 285px 1fr;
+            gap: 30px;
+            align-items: center;
+            padding: 35px 0
+        }
+
+        .kicker {
+            font-size: 10px;
+            letter-spacing: 1.7px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #86659f
+        }
+
+        h1 {
+            font-size: 49px;
+            letter-spacing: -2.5px;
+            margin: 20px 0
+        }
+
+        h1 span {
+            color: #8965b0
+        }
+
+        .hero p {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        .hero .btn {
+            margin-top: 13px
+        }
+
+        .scene {
+            position: relative;
+            min-height: 590px;
+            border: 1.5px solid #bda7ce;
+            border-radius: 22px;
+            background: #e8e1ef;
+            overflow: hidden;
+            box-shadow: 6px 7px 0 #e1d5eb
+        }
+
+        #stage {
+            height: 590px;
+            width: 100%
+        }
+
+        canvas {
+            display: block;
+            touch-action: pan-y
+        }
+
+        .scenehead {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            right: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px
+        }
+
+        .scenehead>span {
+            font-size: 9px;
+            background: #fbf8f1dc;
+            border: 1px solid #d3c3df;
+            border-radius: 6px;
+            padding: 7px 10px;
+            letter-spacing: 1px
+        }
+
+        .scenehead .btn {
+            padding: 7px 10px;
+            font-size: 10px;
+            margin: 0
+        }
+
+        .hud {
+            position: absolute;
+            bottom: 17px;
+            left: 17px;
+            right: 17px;
+            background: #fbf8f1ed;
+            border: 1px solid white;
+            backdrop-filter: blur(10px);
+            border-radius: 13px;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            font-size: 10px
+        }
+
+        .hud small {
+            display: block;
+            font-size: 9px;
+            color: var(--muted)
+        }
+
+        .slots {
+            display: flex;
+            gap: 5px
+        }
+
+        .slot {
+            width: 25px;
+            height: 26px;
+            border: 1px dashed #b4a0c5;
+            border-radius: 6px;
+            display: grid;
+            place-items: center
+        }
+
+        .slot.done {
+            border-style: solid;
+            background: var(--lime)
+        }
+
+        #hover {
+            position: absolute;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #302843ed;
+            color: white;
+            border-radius: 15px;
+            padding: 7px 12px;
+            font-size: 11px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0
+        }
+
+        #loading {
+            position: absolute;
+            top: 43%;
+            left: 15%;
+            right: 15%;
+            font-size: 12px;
+            text-align: center;
+            pointer-events: none
+        }
+
+        .objects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 14px 0
+        }
+
+        .chip {
+            border: 1px solid #cdbada;
+            background: white;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 11px
+        }
+
+        .chip.done {
+            background: #edf4da;
+            border-color: #adc48e
+        }
+
+        .mission {
+            margin: 18px 0 35px;
+            background: var(--ink);
+            color: white;
+            border-radius: 15px;
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            gap: 25px;
+            align-items: center
+        }
+
+        .mission p {
+            font-size: 11px;
+            color: #d6c9df;
+            margin: 5px 0
+        }
+
+        .mission .btn {
+            background: var(--lime);
+            color: var(--ink);
+            white-space: nowrap;
+            box-shadow: none
+        }
+
+        .mission .btn:disabled {
+            background: #786d86;
+            color: #e3d7eb;
+            cursor: not-allowed;
+            transform: none
+        }
+
+        .bridge {
+            background: #eee4f6;
+            border: 1.5px solid #bba6ce;
+            border-radius: 18px;
+            padding: 29px 32px;
+            display: flex;
+            justify-content: space-between;
+            gap: 25px;
+            align-items: center;
+            box-shadow: 5px 6px 0 #e1d4eb
+        }
+
+        .bridge h2 {
+            font-size: 32px;
+            margin: 10px 0;
+            letter-spacing: -1px
+        }
+
+        .bridge p {
+            font-size: 12px;
+            color: var(--muted);
+            max-width: 600px
+        }
+
+        .bridge svg {
+            width: 105px;
+            height: 105px;
+            flex-shrink: 0;
+            transform: rotate(7deg)
+        }
+
+        .section {
+            padding: 48px 0;
+            scroll-margin-top: 85px
+        }
+
+        .head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 30px;
+            margin-bottom: 28px
+        }
+
+        .head h2 {
+            font-size: 37px;
+            letter-spacing: -1.5px;
+            margin: 12px 0
+        }
+
+        .head>p {
+            font-size: 12px;
+            color: var(--muted);
+            max-width: 340px
+        }
+
+        .sectiontoken {
+            display: inline-flex;
+            background: #e9dff4;
+            border: 1px solid #c4afd5;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font: 700 10px 'Space Grotesk', sans-serif;
+            letter-spacing: 1px
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 69px
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 25px;
+            top: 30px;
+            bottom: 90px;
+            border-left: 3px dashed #c8b4d8
+        }
+
+        .role {
+            position: relative;
+            margin-bottom: 26px
+        }
+
+        .node {
+            position: absolute;
+            left: -69px;
+            top: 23px;
+            width: 52px;
+            height: 52px;
+            border: 1.5px solid #8f739f;
+            box-shadow: 3px 4px 0 #dfcfe8;
+            border-radius: 14px;
+            background: var(--accent);
+            display: grid;
+            place-items: center;
+            font-size: 26px;
+            transform: rotate(-5deg)
+        }
+
+        .rolecard {
+            border: 1.5px solid #bda6cc;
+            border-radius: 15px;
+            background: white;
+            overflow: hidden;
+            box-shadow: 5px 6px 0 #e3d8eb;
+            transition: transform .2s
+        }
+
+        .rolecard:hover {
+            transform: translateY(-3px)
+        }
+
+        .cardtop {
+            background: var(--accent);
+            padding: 10px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #c7afd7;
+            font: 700 10px 'Space Grotesk', sans-serif;
+            letter-spacing: 1px
+        }
+
+        .date {
+            background: #ffffffa6;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 10px;
+            letter-spacing: 0;
+            white-space: nowrap
+        }
+
+        .rolebody {
+            padding: 24px
+        }
+
+        .rolebody h3 {
+            font-size: 25px;
+            letter-spacing: -.7px;
+            margin: 0 0 9px
+        }
+
+        .org {
+            font-size: 12px;
+            color: var(--muted);
+            margin: 0 0 22px
+        }
+
+        .bullets {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 17px 28px
+        }
+
+        .bullets p {
+            margin: 0;
+            font-size: 12px;
+            color: #796a83;
+            padding-left: 14px;
+            position: relative
+        }
+
+        .bullets p:before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: #a58bb8;
+            font-size: 10px
+        }
+
+        .bullets strong {
+            display: block;
+            font-size: 12px;
+            color: #493954;
+            margin-bottom: 4px
+        }
+
+        .grid2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px
+        }
+
+        .project {
+            border: 1.5px solid #bba6cd;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 5px 6px 0 #e3d7eb;
+            overflow: hidden
+        }
+
+        .art {
+            height: 195px;
+            border-bottom: 1px solid #bba6cd;
+            position: relative;
+            background: #f0ddc3
+        }
+
+        .art svg {
+            width: 100%;
+            height: 100%
+        }
+
+        .sticker {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            background: var(--lime);
+            border: 1px solid #917aa0;
+            border-radius: 4px;
+            transform: rotate(7deg);
+            font-size: 9px;
+            font-weight: 700;
+            padding: 6px 8px
+        }
+
+        .pbody {
+            padding: 25px
+        }
+
+        .pbody h3 {
+            font-size: 25px;
+            margin: 12px 0
+        }
+
+        .pbody p {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        .pbody a {
+            font-size: 12px;
+            font-weight: 700;
+            text-underline-offset: 5px
+        }
+
+        .pending {
+            border: 1px dashed #b9a3c9;
+            border-radius: 7px;
+            padding: 10px;
+            font-size: 11px;
+            color: var(--muted);
+            background: #faf7fc
+        }
+
+        .inventorycards,
+        .milestones {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px
+        }
+
+        .toolcard {
+            background: white;
+            border: 1.5px solid #bfa7ce;
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 4px 5px 0 #e2d5ea
+        }
+
+        .toolicon {
+            width: 48px;
+            height: 48px;
+            background: var(--tint);
+            border: 1.5px solid #9b81ad;
+            border-radius: 11px;
+            display: grid;
+            place-items: center;
+            font-size: 22px;
+            transform: rotate(-6deg);
+            margin-bottom: 22px
+        }
+
+        .toolcard h3 {
+            font-size: 20px;
+            margin: 0 0 17px
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px
+        }
+
+        .tags span {
+            padding: 5px 8px;
+            border: 1px solid #ded0e7;
+            border-radius: 5px;
+            background: #faf7fc;
+            font-size: 10px
+        }
+
+        .ribbon {
+            border-top: 1px dashed #dfd0e9;
+            margin-top: 20px;
+            padding-top: 12px;
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #987ba9
+        }
+
+        .more {
+            border: 1px dashed #cbb6d9;
+            border-radius: 12px;
+            padding: 22px;
+            background: white;
+            margin-top: 23px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            font-size: 11px;
+            color: var(--muted)
+        }
+
+        .more strong {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 7px;
+            color: var(--ink)
+        }
+
+        .achievement {
+            border: 1.5px solid #c3af8b;
+            background: #f3ead7;
+            border-radius: 14px;
+            padding: 23px;
+            box-shadow: 4px 5px 0 #e9deca
+        }
+
+        .medal {
+            width: 47px;
+            height: 47px;
+            background: #f2d68d;
+            border: 2px solid #b7a06b;
+            box-shadow: inset 0 0 0 4px #f9e8bb;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 20px;
+            margin-bottom: 20px
+        }
+
+        .achievement h3 {
+            font-size: 19px;
+            margin: 12px 0
+        }
+
+        .achievement p {
+            font-size: 11px;
+            color: #8b7b60
+        }
+
+        .notes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px
+        }
+
+        .note {
+            position: relative;
+            border: 1px solid #ccb5da;
+            border-radius: 7px;
+            background: #eee3f5;
+            padding: 25px;
+            box-shadow: 4px 5px 0 #e4d6eb
+        }
+
+        .note:before {
+            content: '';
+            width: 65px;
+            height: 19px;
+            position: absolute;
+            left: calc(50% - 32px);
+            top: -9px;
+            background: #ffffff99;
+            transform: rotate(-5deg);
+            border: 1px solid #eee6f4
+        }
+
+        .note h3 {
+            font-size: 21px;
+            margin: 0 0 15px
+        }
+
+        .note p {
+            font-size: 12px;
+            color: var(--muted)
+        }
+
+        .contact {
+            background: #cbb7ee;
+            border: 1.5px solid #a58bbb;
+            border-radius: 18px;
+            padding: 32px;
+            box-shadow: 5px 6px 0 #e1d3ec;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px
+        }
+
+        .contact h2 {
+            font-size: 33px;
+            letter-spacing: -1px;
+            margin: 12px 0
+        }
+
+        .contact p {
+            font-size: 12px;
+            color: #755985
+        }
+
+        footer {
+            font-size: 10px;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 30px 0
+        }
+
+        dialog {
+            padding: 0;
+            border: 1.5px solid #bba3cb;
+            border-radius: 18px;
+            background: var(--paper);
+            width: min(610px, 92vw);
+            max-height: 85vh;
+            overflow: auto;
+            box-shadow: 10px 15px 70px #30284355;
+            color: var(--ink)
+        }
+
+        dialog::backdrop {
+            background: #30284377;
+            backdrop-filter: blur(6px)
+        }
+
+        .dhead {
+            padding: 14px 23px;
+            background: #e9dff4;
+            border-bottom: 1px solid #c8b4d6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase
+        }
+
+        .close {
+            width: 29px;
+            height: 29px;
+            border: 1px solid #bca3cd;
+            border-radius: 50%;
+            background: white;
+            font-size: 18px
+        }
+
+        .dbody {
+            padding: 26px
+        }
+
+        .dbody h2 {
+            font-size: 30px;
+            margin: 0 0 18px
+        }
+
+        .dbody p {
+            font-size: 13px;
+            color: #75637f
+        }
+
+        .loot {
+            border-radius: 9px;
+            padding: 12px;
+            background: #e7efcf;
+            margin-top: 20px;
+            font-size: 11px
+        }
+
+        .choice {
+            display: block;
+            width: 100%;
+            text-align: left;
+            margin: 10px 0;
+            padding: 12px;
+            border: 1px solid #c9b2d8;
+            border-radius: 8px;
+            background: white;
+            font-size: 13px
+        }
+
+        .choice:hover {
+            background: #eee5f6
+        }
+
+        .skip {
+            position: fixed;
+            top: -90px;
+            left: 15px;
+            z-index: 30;
+            background: white;
+            padding: 12px
+        }
+
+        .skip:focus {
+            top: 10px
+        }
+
+        .printname {
+            display: none
+        }
+
+        @media(max-width:900px) {
+            .hero {
+                grid-template-columns: 220px 1fr;
+                gap: 22px
+            }
+
+            h1 {
+                font-size: 41px
+            }
+
+            .scene {
+                min-height: 530px
+            }
+
+            #stage {
+                height: 530px
+            }
+
+            .slots {
+                gap: 3px
+            }
+
+            .slot {
+                width: 21px
+            }
+
+            .bullets {
+                grid-template-columns: 1fr
+            }
+
+            .inventorycards,
+            .milestones {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .inventorycards>article:last-child,
+            .milestones>article:last-child {
+                grid-column: 1/-1
+            }
+        }
+
+        @media(max-width:650px) {
+            nav {
+                padding: 14px 20px
+            }
+
+            .navlinks {
+                gap: 13px
+            }
+
+            .navlinks .optional {
+                display: none
+            }
+
+            .brand {
+                font-size: 18px
+            }
+
+            .navlinks .btn {
+                padding: 8px 10px;
+                font-size: 10px
+            }
+
+            .wrap {
+                padding: 0 20px
+            }
+
+            .hero {
+                display: block;
+                padding: 25px 0
+            }
+
+            h1 {
+                font-size: 40px
+            }
+
+            h1 br {
+                display: none
+            }
+
+            .scene {
+                margin-top: 25px;
+                min-height: 480px
+            }
+
+            #stage {
+                height: 480px
+            }
+
+            .scenehead {
+                left: 12px;
+                right: 12px;
+                top: 14px
+            }
+
+            .scenehead>span {
+                font-size: 8px
+            }
+
+            .hud {
+                left: 10px;
+                right: 10px;
+                bottom: 12px;
+                padding: 10px;
+                gap: 8px
+            }
+
+            .slot {
+                width: 20px;
+                height: 24px
+            }
+
+            .slots {
+                gap: 3px
+            }
+
+            .mission {
+                display: block;
+                padding: 20px
+            }
+
+            .mission .btn {
+                margin-top: 15px
+            }
+
+            .bridge {
+                padding: 23px;
+                display: block
+            }
+
+            .bridge svg {
+                display: none
+            }
+
+            .bridge h2 {
+                font-size: 29px
+            }
+
+            .section {
+                padding: 35px 0
+            }
+
+            .head {
+                display: block;
+                margin-bottom: 22px
+            }
+
+            .head h2 {
+                font-size: 30px
+            }
+
+            .timeline {
+                padding-left: 33px
+            }
+
+            .timeline:before {
+                left: 9px
+            }
+
+            .node {
+                width: 28px;
+                height: 33px;
+                left: -43px;
+                top: 20px;
+                border-radius: 7px;
+                font-size: 17px
+            }
+
+            .cardtop {
+                font-size: 8px;
+                padding: 10px 13px;
+                letter-spacing: .5px
+            }
+
+            .date {
+                font-size: 9px;
+                padding: 3px 5px
+            }
+
+            .rolebody {
+                padding: 18px
+            }
+
+            .rolebody h3 {
+                font-size: 21px
+            }
+
+            .grid2,
+            .inventorycards,
+            .milestones,
+            .more,
+            .notes {
+                grid-template-columns: 1fr
+            }
+
+            .contact {
+                display: block;
+                padding: 24px
+            }
+
+            .contact h2 {
+                font-size: 29px
+            }
+
+            .contact .btn {
+                margin-top: 15px
+            }
+
+            .art {
+                height: 175px
+            }
+
+            footer {
+                display: block
+            }
+
+            footer span {
+                display: block;
+                margin-bottom: 8px
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            * {
+                scroll-behavior: auto !important;
+                transition: none !important
+            }
+        }
+
+        @media print {
+
+            header,
+            .hero,
+            .game-controls,
+            .bridge,
+            .node,
+            .art,
+            .btn,
+            .contact,
+            footer,
+            dialog,
+            .skip {
+                display: none !important
+            }
+
+            .wrap {
+                max-width: none;
+                padding: 0
+            }
+
+            .printname {
+                display: block
+            }
+
+            .printname h1 {
+                font-size: 28px
+            }
+
+            .printname p {
+                font-size: 11px
+            }
+
+            .section {
+                padding: 14px 0
+            }
+
+            .timeline {
+                padding: 0
+            }
+
+            .timeline:before {
+                display: none
+            }
+
+            .role {
+                margin-bottom: 15px
+            }
+
+            .rolecard,
+            .project,
+            .toolcard,
+            .achievement,
+            .note {
+                box-shadow: none;
+                break-inside: avoid
+            }
+
+            .rolecard:hover {
+                transform: none
+            }
+
+            .rolebody {
+                padding: 14px
+            }
+
+            .rolebody h3 {
+                font-size: 19px
+            }
+
+            .bullets {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px 20px
+            }
+
+            .bullets p {
+                font-size: 10px
+            }
+
+            .bullets strong {
+                font-size: 11px
+            }
+
+            .head h2 {
+                font-size: 25px
+            }
+
+            .head p {
+                font-size: 10px
+            }
+
+            .pbody {
+                padding: 16px
+            }
+
+            .more {
+                padding: 14px
+            }
+
+            .note {
+                padding: 17px
+            }
+
+            body {
+                background: white
+            }
+        }
+    </style>
+</head>
+
+<body><a class="skip" href="#experience">Skip game and read experience</a>
+    <header>
+        <nav aria-label="Main navigation"><a class="brand" href="#">silvana nencha<span
+                    style="color:#8965b0">.</span><small>The learning studio</small></a>
+            <div class="navlinks"><a href="#experience">Experience ↓</a><a class="optional" href="#work">Work</a><a
+                    class="optional" href="#skills">Skills</a><button class="btn light" id="print">Save CV ↗</button><a
+                    class="btn optional" href="mailto:nenchasilvana@gmail.com">Let’s talk</a></div>
+        </nav>
+    </header>
+    <main class="wrap">
+        <div class="hero">
+            <div>
+                <div class="kicker">Instructional designer / Digital builder</div>
+                <h1>Serious learning.<br><span>Playful thinking.</span></h1>
+                <p>I turn complex knowledge into learning experiences people can explore, apply and enjoy.</p>
+                <p>Discover the objects in my studio — or take the direct route to my experience below.</p><a
+                    class="btn" href="#experience">Skip to experience ↓</a>
+            </div>
+            <div class="scene">
+                <div class="scenehead"><span>CLICK AN OBJECT / DISCOVER A STORY</span><button class="btn light"
+                        id="view">Change view ↻</button></div>
+                <div id="stage" role="img"
+                    aria-label="Interactive 3D learning studio. Equivalent object buttons immediately below."></div>
+                <div id="loading">Preparing the studio…<br>3D requires an Internet connection.</div>
+                <div id="hover"></div>
+                <div class="hud">
+                    <div><strong id="counter">0 of 8 discoveries</strong><small>All experience is also visible
+                            below.</small></div>
+                    <div class="slots" id="slots" aria-label="Discovery inventory"></div>
+                </div>
+            </div>
+        </div>
+        <div class="game-controls">
+            <div class="objects" id="objects" aria-label="Explore the studio as a list"></div>
+            <div class="mission">
+                <div><strong>The mystery brief.</strong>
+                    <p>Find the notebook, robot, clock and key to open an optional learning challenge. No CV content is
+                        locked.</p>
+                </div><button class="btn" id="mission" disabled>Find four clues first</button>
+            </div>
+        </div>
+        <div class="bridge">
+            <div>
+                <div class="kicker">Direct route / Everything, at a glance</div>
+                <h2>The quest log.<br>Real work. All visible.</h2>
+                <p>No clues to collect here. Experience, projects and skills — with the same playful spirit, but a
+                    straight route through the content.</p>
+            </div><svg viewBox="0 0 120 120" aria-hidden="true">
+                <rect x="20" y="12" width="80" height="99" rx="6" fill="#fff8e8" stroke="#9071a1" stroke-width="3" />
+                <rect x="39" y="5" width="42" height="17" rx="3" fill="#d4e7a5" stroke="#9071a1" stroke-width="2" />
+                <path d="m33 45 5 5 10-12m-15 36 5 5 10-12m-15 36 5 5 10-12" stroke="#98b17b" stroke-width="4"
+                    fill="none" />
+                <path d="M57 45h27M57 69h27M57 93h22" stroke="#c3acd3" stroke-width="5" />
+            </svg>
+        </div>
+        <div class="printname">
+            <h1>Silvana Nencha</h1>
+            <p>Instructional Design · Digital Learning · AI Agent Development<br>Italy · nenchasilvana@gmail.com · +39
+                345 789 1797</p>
+        </div>
+        <section class="section" id="experience">
+            <div class="head">
+                <div><span class="sectiontoken">01 / CAREER QUEST</span>
+                    <h2>Experience, level by level.</h2>
+                </div>
+                <p>Corporate learning, doctoral research and hands-on development. Dates reflect the actual timeline,
+                    including overlapping activities.</p>
+            </div>
+            <div class="timeline">
+                <article class="role" style="--accent:#cab7f5">
+                    <div class="node" aria-hidden="true">✦</div>
+                    <div class="rolecard">
+                        <div class="cardtop"><span>CHAPTER 04 / CURRENT CHAPTER</span><span class="date">2026 —
+                                Present</span></div>
+                        <div class="rolebody">
+                            <h3>Consultant — Learning & Development</h3>
+                            <p class="org">Deloitte NextHub S.r.l.</p>
+                            <div class="bullets">
+                                <p><strong>End-to-end ownership</strong><span>Manage learning projects from needs
+                                        analysis and instructional design through content development, production and
+                                        delivery.</span></p>
+                                <p><strong>AI agents & automation</strong><span>Act as Agent Builder Expert for the
+                                        area, working with colleagues to identify process needs and build agents that
+                                        automate internal workflows.</span></p>
+                                <p><strong>Learning innovation</strong><span>Innovate e-learning production through
+                                        generative AI and agents for personalised, interactive and gamified
+                                        experiences.</span></p>
+                                <p><strong>Digital & hybrid learning</strong><span>Create interactive assets,
+                                        simulations and digital experiences for in-person training using Articulate 360,
+                                        Construct and JavaScript.</span></p>
+                                <p><strong>Programme management</strong><span>Managed the design and delivery of a
+                                        time-travel-themed programme for the wider organisational unit, supporting
+                                        upskilling and transversal skills.</span></p>
+                                <p><strong>Stakeholder collaboration</strong><span>Partner with stakeholders and SMEs on
+                                        role-based learning, including generative AI, digital transformation and
+                                        emerging technologies.</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="role" style="--accent:#bfdeec">
+                    <div class="node" aria-hidden="true">⌘</div>
+                    <div class="rolecard">
+                        <div class="cardtop"><span>CHAPTER 03 / BUILD MODE</span><span class="date">2025</span></div>
+                        <div class="rolebody">
+                            <h3>eLearning Content Developer</h3>
+                            <p class="org">Deloitte NextHub S.r.l.</p>
+                            <div class="bullets">
+                                <p><strong>Digital production</strong><span>Developed SCORM-compliant modules with
+                                        Articulate Storyline and Rise for LMS/LXP delivery.</span></p>
+                                <p><strong>Interactive development</strong><span>Created mini-games and interactive
+                                        assets with JavaScript Vibe Coding.</span></p>
+                                <p><strong>Content & learning design</strong><span>Researched, curated and structured
+                                        complex topics into clear learning journeys, including role-based paths on
+                                        generative AI.</span></p>
+                                <p><strong>Cross-functional collaboration</strong><span>Worked with multidisciplinary
+                                        teams to align learning solutions with learner, organisational and business
+                                        needs.</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="role" style="--accent:#f2d6ac">
+                    <div class="node" aria-hidden="true">⌕</div>
+                    <div class="rolecard">
+                        <div class="cardtop"><span>CHAPTER 02 / RESEARCH QUEST</span><span class="date">2022 —
+                                2025</span></div>
+                        <div class="rolebody">
+                            <h3>Research & Learning Content Specialist</h3>
+                            <p class="org">University of Bari “Aldo Moro” · Doctoral Research</p>
+                            <div class="bullets">
+                                <p><strong>Project coordination</strong><span>Planned and delivered a three-year
+                                        research project, defining objectives, organising activities and managing
+                                        research outputs.</span></p>
+                                <p><strong>Research & knowledge management</strong><span>Analysed textual and
+                                        performance-related sources, classifying heterogeneous material into coherent
+                                        knowledge structures.</span></p>
+                                <p><strong>Digital communication</strong><span>Designed and developed Scene di Pietra to
+                                        share research on classical texts, ancient theatres, archaeological sites and
+                                        performance.</span></p>
+                                <p><strong>Public speaking</strong><span>Presented research at conferences and
+                                        communicated specialised findings to different audiences.</span></p>
+                                <p><strong>Training & outreach</strong><span>Designed and delivered an Ancient Greek
+                                        workshop (2023); organised university orientation activities and guidance
+                                        (2022).</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="role" style="--accent:#efc5d3">
+                    <div class="node" aria-hidden="true">▥</div>
+                    <div class="rolecard">
+                        <div class="cardtop"><span>CHAPTER 01 / CULTURE EXPLORATION</span><span class="date">2023</span>
+                        </div>
+                        <div class="rolebody">
+                            <h3>Research & Content Intern</h3>
+                            <p class="org">Teatro Pubblico Ligure · Genova</p>
+                            <div class="bullets">
+                                <p><strong>Research & curation</strong><span>Researched ancient theatres, archaeological
+                                        sites, festivals and events; curated source texts and bibliographies to support
+                                        theatrical productions.</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="section" id="work">
+            <div class="head">
+                <div><span class="sectiontoken" style="background:#f5e2c4">02 / PROJECT SHELF</span>
+                    <h2>Proof of play.</h2>
+                </div>
+                <p>Two windows into the way I research, structure and communicate knowledge.</p>
+            </div>
+            <div class="grid2">
+                <article class="project">
+                    <div class="art"><span class="sticker">RESEARCH × WEB</span><svg viewBox="0 0 500 200"
+                            aria-hidden="true">
+                            <circle cx="370" cy="47" r="30" fill="#fff3ca" />
+                            <path d="M0 175 115 120 240 163 370 120 500 165v40H0" fill="#bfa9cd" />
+                            <path d="M173 200V100a78 78 0 0 1 156 0v100h-33V100a45 45 0 0 0-90 0v100Z" fill="#fff1d2"
+                                stroke="#8d6d85" stroke-width="3" />
+                            <path d="M251 22v33m-52-10 19 23m85-23-19 23m-109 38h30m91 0h31m-153 42h32m90 0h32"
+                                stroke="#bea2a3" stroke-width="3" />
+                        </svg></div>
+                    <div class="pbody">
+                        <div class="kicker">Digital research portfolio</div>
+                        <h3>Scene di Pietra</h3>
+                        <p>A website I designed and developed to share doctoral research on classical texts, ancient
+                            theatres, archaeological sites and performance.</p>
+                        <div class="tags"><span>Knowledge organisation</span><span>Web development</span></div>
+                        <p><a href="https://www.scenedipietra.online" target="_blank" rel="noopener noreferrer">Explore
+                                the website ↗ (new tab)</a></p>
+                    </div>
+                </article>
+                <article class="project">
+                    <div class="art" style="background:#cadee9"><span class="sticker"
+                            style="background:#f0c5d5">SPEAKING × INTERACTION</span><svg viewBox="0 0 500 200"
+                            aria-hidden="true">
+                            <rect x="109" y="30" width="281" height="143" rx="13" fill="#fff9ed" stroke="#8d789d"
+                                stroke-width="3" />
+                            <path d="M109 57h281" stroke="#c4b2d0" stroke-width="2" />
+                            <circle cx="125" cy="43" r="4" fill="#edbfd1" />
+                            <circle cx="138" cy="43" r="4" fill="#dcecae" />
+                            <rect x="132" y="77" width="121" height="16" rx="5" fill="#c8b4ef" />
+                            <path d="M132 111h102m-102 15h85" stroke="#c9b9d3" stroke-width="5" />
+                            <rect x="132" y="145" width="77" height="14" rx="5" fill="#d5e8a8" />
+                            <path d="m299 85 60 29-27 10-9 24Z" fill="#f2bfd1" stroke="#8d789d" stroke-width="2" />
+                        </svg></div>
+                    <div class="pbody">
+                        <div class="kicker">Interactive conference presentation</div>
+                        <h3>Ideas in play</h3>
+                        <p>An interactive presentation delivered at a conference in Palermo, connecting public speaking
+                            and digital interaction.</p>
+                        <div class="tags"><span>Public speaking</span><span>Interactive communication</span></div>
+                                                <p>
+                            <a
+                                href="https://booksaremyfood.github.io/EIC26/#/lessons/NvDcuvjGc0inh2RyjsEmBFR-umuKnNaRs
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Explore the interactive presentation ↗ (new tab)
+                            </a>
+                            </p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="section" id="skills">
+            <div class="head">
+                <div><span class="sectiontoken" style="background:#e3edc9">03 / SKILL INVENTORY</span>
+                    <h2>Different tools. One mindset.</h2>
+                </div>
+                <p>Capabilities and tools, not arbitrary scores. Built through research, practice and experimentation.
+                </p>
+            </div>
+            <div class="inventorycards">
+                <article class="toolcard" style="--tint:#e1d4f6">
+                    <div class="toolicon" aria-hidden="true">✦</div>
+                    <h3>Learning architect</h3>
+                    <div class="tags"><span>Instructional Design</span><span>Learning Experience
+                            Design</span><span>End-to-End Project Management</span><span>Training Design &
+                            Delivery</span><span>Hybrid Learning</span><span>Gamification</span><span>Stakeholder & SME
+                            Collaboration</span></div>
+                    <div class="ribbon">Design with intention</div>
+                </article>
+                <article class="toolcard" style="--tint:#d0e5ee">
+                    <div class="toolicon" aria-hidden="true">⌘</div>
+                    <h3>Digital builder</h3>
+                    <div class="tags"><span>Articulate 360</span><span>Adobe
+                            Captivate</span><span>Construct</span><span>SCORM / LMS / LXP</span><span>HTML / CSS /
+                            JavaScript</span><span>Python / PHP / Laravel</span></div>
+                    <div class="ribbon">Make the idea tangible</div>
+                </article>
+                <article class="toolcard" style="--tint:#e2edbd">
+                    <div class="toolicon" aria-hidden="true">⌕</div>
+                    <h3>Research & AI explorer</h3>
+                    <div class="tags"><span>AI Agent Development</span><span>Generative AI</span><span>Process
+                            Automation</span><span>Content Research & Curation</span><span>Knowledge
+                            Management</span><span>Public Speaking</span><span>Agent Builder / Claude Code</span></div>
+                    <div class="ribbon">Experiment with rigour</div>
+                </article>
+            </div>
+            <div class="more">
+                <div><strong>AI & content tools</strong>Perplexity, HeyGen, Canva and Speechify.</div>
+                <div><strong>Productivity</strong>Microsoft Office and Google Workspace.</div>
+                <div><strong>Core combination</strong>Humanities research + learning design + hands-on technology.</div>
+            </div>
+        </section>
+        <section class="section" id="education">
+            <div class="head">
+                <div><span class="sectiontoken" style="background:#f4e6ba">04 / LEARNING MILESTONES</span>
+                    <h2>Curiosity is a long game.</h2>
+                </div>
+                <p>Academic depth, computational exploration and practical development skills.</p>
+            </div>
+            <div class="milestones">
+                <article class="achievement">
+                    <div class="medal" aria-hidden="true">✦</div>
+                    <div class="kicker">2022–2025</div>
+                    <h3>PhD in Literature, Languages and Arts</h3>
+                    <p>University of Bari “Aldo Moro”</p>
+                    <p>Ancient Greek theatre, classical reception and digital humanities.</p>
+                </article>
+                <article class="achievement">
+                    <div class="medal" aria-hidden="true">⌕</div>
+                    <div class="kicker">AUGUST 2024</div>
+                    <h3>Summer School in Digital Humanities</h3>
+                    <p>University of Oxford</p>
+                    <p>Computational text analysis, Python, NLP and generative AI.</p>
+                </article>
+                <article class="achievement">
+                    <div class="medal" aria-hidden="true">⌘</div>
+                    <div class="kicker">2022–2023</div>
+                    <h3>Full-Stack Web Development</h3>
+                    <p>Aulab Hackademy</p>
+                    <p>Junior Full Stack Developer certification. HTML, CSS, JavaScript, PHP and Laravel.</p>
+                </article>
+            </div>
+            <div class="more">
+                <div><strong>MA in Classical Philology, Ancient Literatures and History</strong>University of Bari ·
+                    2019–2021</div>
+                <div><strong>BA in Classical Studies</strong>University of Bari · 2016–2019</div>
+                <div><strong>Teacher Training Programme (24 CFU)</strong>University of Bari · 2021</div>
+            </div>
+            <div class="notes">
+                <article class="note">
+                    <h3>Words connect worlds.</h3>
+                    <p><strong>Languages</strong><br>Italian · native<br>English · C1<br>French · A2<br>German · A1</p>
+                </article>
+                <article class="note" style="background:#e3edee">
+                    <h3>Learning is a human thing.</h3>
+                    <p><strong>Volunteer Italian Teacher</strong><br>Etnie, Bari · 2025</p>
+                    <p>Delivered Italian language activities for children from international backgrounds, adapting
+                        materials to different levels and learning needs.</p>
+                </article>
+            </div>
+        </section>
+        <section class="section" id="contact">
+            <div class="contact">
+                <div>
+                    <div class="kicker">Next chapter / Let’s build something useful</div>
+                    <h2>Have a challenge<br>worth exploring?</h2>
+                    <p>Italy · <a href="mailto:nenchasilvana@gmail.com">nenchasilvana@gmail.com</a><br>+39 345 789 1797
+                    </p>
+                </div><a class="btn" href="mailto:nenchasilvana@gmail.com">Start a conversation ↗</a>
+            </div>
+        </section>
+        <footer><span>Silvana Nencha · Serious learning. Playful thinking.</span><span>Original procedural 3D artwork ·
+                No tracking · Session-only discoveries</span></footer>
+    </main>
+    <dialog id="dialog" aria-labelledby="dtitle">
+        <div class="dhead"><span>Studio discovery</span><button class="close" id="close"
+                aria-label="Close dialog">×</button></div>
+        <div class="dbody" id="dbody"></div>
+    </dialog>
+    <script>
+        const discoveries = {laptop: ['The laptop', 'From idea to working experience.', 'I build interactive learning assets, simulations and games with Articulate 360, Construct and JavaScript. SCORM production and digital experiences for in-person training connect design with delivery.', 'Interactive development'], book: ['Research notebook', 'Clarity starts with curiosity.', 'My three-year doctoral project developed project coordination, qualitative research, knowledge organisation and digital communication skills.', 'Research clue'], robot: ['AI sidekick', 'Useful AI starts with a real need.', 'As Agent Builder Expert for my area, I work with colleagues to understand their processes and build agents that automate internal activities. I also innovate e-learning production with AI.', 'AI clue'], clock: ['Time-travel clock', 'A learning programme with a storyline.', 'I managed the design and delivery of a time-travel-themed upskilling and transversal skills programme. A theme should support meaningful practice, not replace it.', 'Design clue'], globe: ['Research globe', 'Scene di Pietra.', 'A website I designed and developed to share research on classical texts, ancient theatres, archaeological sites and performance.', 'Research portfolio'], ticket: ['Speaker pass', 'Ideas in play.', 'An interactive presentation delivered at a conference in Palermo.', 'Speaker pass'], drawer: ['Toolkit drawer', 'An unusual combination.', 'Learning design, content research, training delivery, custom development, AI agents and a humanities background. All skills and education are visible below the room.', 'Skills toolkit'], key: ['Curiosity key', 'You noticed the small things.', 'This key opens the optional mystery brief once you have also found the notebook, robot and clock. Nothing in the CV is locked behind the game.', 'Curiosity key']};
+        const found = new Set(), dialog = document.getElementById('dialog'); let lastFocus; function show(title, content) {lastFocus = document.activeElement; document.getElementById('dbody').innerHTML = '<h2 id="dtitle">' + title + '</h2>' + content; if (!dialog.open) dialog.showModal()}
+        Object.entries(discoveries).forEach(([k, d]) => {let b = document.createElement('button'); b.className = 'chip'; b.id = 'b-' + k; b.textContent = d[0]; b.onclick = () => window.discover(k); document.getElementById('objects').append(b); let s = document.createElement('span'); s.className = 'slot'; s.id = 's-' + k; s.textContent = '·'; s.setAttribute('aria-label', 'Not yet found: ' + d[0]); document.getElementById('slots').append(s)});
+        window.discover = k => {const d = discoveries[k]; found.add(k); document.getElementById('b-' + k).classList.add('done'); let slot = document.getElementById('s-' + k); slot.classList.add('done'); slot.textContent = '✓'; slot.setAttribute('aria-label', 'Found: ' + d[0]); document.getElementById('counter').textContent = found.size + ' of 8 discoveries'; show(d[1], '<p>' + d[2] + '</p>' + (
+  k === 'globe'
+    ? '<p><a class="btn" href="https://www.scenedipietra.online" target="_blank" rel="noopener noreferrer">Explore website ↗</a></p>'
+    : k === 'ticket'
+      ? '<p><a class="btn" href="https://booksaremyfood.github.io/EIC26/#/lessons/NvDcuvjGc0inh2RyjsEmBFR-umuKnNaR" target="_blank" rel="noopener noreferrer">Explore the presentation ↗ (new tab)</a></p>'
+      : ''
+) + (k === 'robot' ? '<button class="choice" id="robotchip">Inspect instruction chip →</button><p id="robottext" aria-live="polite"></p>' : '') + '<div class="loot">Collected: ' + d[3] + '</div><p><a href="#experience" id="direct">Read the full experience below ↓</a></p>'); document.getElementById('direct').onclick = () => dialog.close(); if (k === 'robot') document.getElementById('robotchip').onclick = () => {document.getElementById('robottext').textContent = 'Understand the problem. Keep people in control. Test the output. Refine the solution.'}; let ready = ['book', 'clock', 'robot', 'key'].every(k => found.has(k)); document.getElementById('mission').disabled = !ready; document.getElementById('mission').textContent = ready ? 'Open the mystery brief →' : 'Find four clues first'};
+        document.getElementById('close').onclick = () => dialog.close(); dialog.addEventListener('close', () => lastFocus?.focus()); dialog.addEventListener('click', e => {if (e.target === dialog) {let r = dialog.getBoundingClientRect(); if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dialog.close()} }); document.getElementById('print').onclick = () => window.print(); document.getElementById('mission').onclick = () => {show('A new learning brief.', '<p>A team needs to learn a complex process. People have different roles and little time to practise. Where would you start?</p><button class="choice" data-correct="false">Build a leaderboard before choosing the learning content.</button><button class="choice" data-correct="true">Understand role-specific needs, design meaningful practice and use AI where it helps.</button><button class="choice" data-correct="false">Generate a complete course with AI and publish without review.</button><div id="result" aria-live="polite"></div>'); document.querySelectorAll('[data-correct]').forEach(b => b.onclick = () => document.getElementById('result').innerHTML = b.dataset.correct === 'true' ? '<div class="loot"><strong>Brief solved.</strong><p>Research clarifies the need. Design makes practice meaningful. Technology supports the solution. People remain in control.</p></div>' : '<p>A tool or a game mechanic cannot replace understanding the learning need. Try another approach.</p>')}; setTimeout(() => {if (!window.studioReady) document.getElementById('loading').innerHTML = 'The 3D scene is taking longer to load.<br>Use the object buttons or scroll to the complete profile below.'}, 10000);
+    </script>
+    <script type="module">
+        try {
+            const T = await import('https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js'); const stage = document.getElementById('stage'), scene = new T.Scene(); scene.background = new T.Color('#e8e1ef'); const camera = new T.OrthographicCamera(-7, 7, 5, -5, .1, 100), renderer = new T.WebGLRenderer({antialias: true}); renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap; renderer.outputColorSpace = T.SRGBColorSpace; stage.append(renderer.domElement); const targets = [], groups = {}, materials = {}; function mat(c) {return materials[c] || (materials[c] = new T.MeshStandardMaterial({color: c, roughness: .8}))} function mesh(geometry, c, x, y, z, p = scene) {let o = new T.Mesh(geometry, mat(c)); o.position.set(x, y, z); o.castShadow = true; o.receiveShadow = true; p.add(o); return o} function box(w, h, d, c, x, y, z, p) {return mesh(new T.BoxGeometry(w, h, d), c, x, y, z, p)} function ball(r, c, x, y, z, p) {return mesh(new T.SphereGeometry(r, 24, 16), c, x, y, z, p)} function cyl(r, h, c, x, y, z, p) {return mesh(new T.CylinderGeometry(r, r * .85, h, 32), c, x, y, z, p)} function group(k, x, y, z) {let g = new T.Group(); g.position.set(x, y, z); scene.add(g); groups[k] = g; return g} function register(g, k) {g.traverse(o => {if (o.isMesh) {o.userData.k = k; targets.push(o)} })} function text(lines, bg, fg = '#302843') {let c = document.createElement('canvas'); c.width = 512; c.height = 320; let ctx = c.getContext('2d'); ctx.fillStyle = bg; ctx.fillRect(0, 0, 512, 320); ctx.fillStyle = fg; ctx.textAlign = 'center'; ctx.font = 'bold 39px monospace'; lines.forEach((l, i) => ctx.fillText(l, 256, 95 + 70 * i)); let tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; return tex} function panel(w, h, tex, x, y, z, p) {let o = new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial({map: tex})); o.position.set(x, y, z); p.add(o); return o}
+            scene.add(new T.HemisphereLight('#fff6e9', '#b6a3ce', 2.8)); let sun = new T.DirectionalLight('#fff2db', 4); sun.position.set(-3, 9, 7); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, {left: -9, right: 9, top: 9, bottom: -9}); sun.shadow.bias = -.0004; sun.shadow.normalBias = .03; scene.add(sun); let fill = new T.DirectionalLight('#c1baff', 1.3); fill.position.set(7, 7, -4); scene.add(fill);
+            box(9, .3, 7, '#d6b998', 0, -.2, 0); box(9, 4.8, .16, '#ddcfeb', 0, 2.3, -3.5); box(.16, 4.8, 7, '#e7daf0', -4.5, 2.3, 0); for (let i = 0; i < 13; i++)box(.018, .008, 7, '#bfa180', -4.2 + i * .68, -.043, 0); box(.08, 2.5, 2.5, '#fff6e8', -4.37, 2.95, -.75); box(.08, 2.13, 2.14, '#b5d7e4', -4.28, 2.95, -.75); box(.12, 2.13, .06, '#fff6e8', -4.2, 2.95, -.75); box(.12, .06, 2.13, '#fff6e8', -4.2, 2.95, -.75); box(.5, .13, 2.7, '#fff6e8', -4.2, 1.7, -.75); let rug = cyl(2.5, .025, '#bca6d1', 0, .005, 1); rug.scale.z = .61;
+            box(5.4, .2, 1.85, '#d2a97e', .1, 1.9, -1.4); box(5.45, .05, 1.9, '#f1cf9e', .1, 2.03, -1.4); for (let x of [-2.3, 2.5]) for (let z of [-2.05, -.75]) box(.13, 1.85, .13, '#9b7e6b', x, .9, z); box(1.4, .18, 1.3, '#9480af', .25, 1.1, .6); box(1.4, 1.1, .18, '#b39aca', .25, 1.65, 1.18); cyl(.08, 1, '#84768f', .25, .5, .6); for (let i = 0; i < 5; i++) {let a = i * Math.PI * 2 / 5; let b = box(.9, .08, .1, '#897b95', .25 + Math.cos(a) * .3, .12, .6 + Math.sin(a) * .3); b.rotation.y = -a; ball(.08, '#51455f', .25 + Math.cos(a) * .7, .09, .6 + Math.sin(a) * .7)}
+            let g = group('laptop', .05, 2.08, -1.18); box(1.55, .07, 1.03, '#9480ac', 0, .015, 0, g); let sc = new T.Group(); sc.position.set(0, .45, -.43); sc.rotation.x = -.15; g.add(sc); box(1.55, .94, .07, '#a18abd', 0, 0, 0, sc); panel(1.37, .76, text(['< LEARN />', 'BUILD. PLAY.'], '#292e43', '#d8f1a0'), 0, 0, .041, sc); box(.48, .009, .28, '#c9badb', 0, .055, .25, g); for (let r = 0; r < 3; r++)for (let i = 0; i < 10; i++)box(.105, .01, .085, '#d7c9e3', -.61 + i * .135, .057, -.24 + r * .11, g); register(g, 'laptop');
+            g = group('book', -1.65, 2.085, -1.05); g.rotation.y = -.22; box(1.05, .06, .7, '#e4aa9d', 0, 0, 0, g); for (let x of [-.25, .25]) {box(.48, .04, .63, '#fff4da', x, .05, 0, g); for (let i = 0; i < 5; i++)box(.33, .006, .012, '#b6a8b9', x, .075, -.2 + i * .08, g)} box(.07, .009, .6, '#a887b8', .32, .078, .13, g); register(g, 'book');
+            g = group('robot', 1.95, 2.13, -1.2); box(.64, .48, .46, '#ae99ca', 0, .25, 0, g); ball(.15, '#ddd0e9', -.45, .3, 0, g); ball(.15, '#ddd0e9', .45, .3, 0, g); box(.85, .6, .55, '#d8e8b4', 0, .87, 0, g); box(.67, .29, .015, '#333a4b', 0, .88, .282, g); ball(.065, '#c7b6f5', -.17, .89, .31, g); ball(.065, '#c7b6f5', .17, .89, .31, g); cyl(.02, .22, '#9a86ad', 0, 1.25, 0, g); ball(.08, '#f2b7c7', 0, 1.4, 0, g); box(.2, .1, .5, '#8b7a9e', -.2, -.03, .03, g); box(.2, .1, .5, '#8b7a9e', .2, -.03, .03, g); register(g, 'robot');
+            g = group('clock', .3, 3.48, -3.35); box(1.75, 1.8, .1, '#ac8a72', 0, 0, 0, g); panel(1.57, 1.62, text(['TIME TO', 'LEARN'], '#efc1c4'), 0, 0, .059, g); let dial = cyl(.36, .045, '#fff6dc', 0, -.02, .09, g); dial.rotation.x = Math.PI / 2; box(.025, .2, .03, '#6e5a78', 0, .07, .127, g); box(.21, .024, .03, '#6e5a78', .08, -.05, .127, g).rotation.z = -.35; register(g, 'clock');
+            box(2.2, .1, .72, '#d8b68d', -2.75, 2.6, -3.05); g = group('globe', -2.85, 2.73, -2.95); cyl(.35, .09, '#ab8b71', 0, 0, 0, g); cyl(.035, .35, '#a48d75', 0, .2, 0, g); ball(.48, '#9dc5cf', 0, .77, 0, g); let ring = mesh(new T.TorusGeometry(.56, .024, 8, 64), '#b59973', 0, .77, 0, g); ring.rotation.z = .3; for (let [x, y, z, r] of [[-.18, .98, .35, .19], [.23, .7, .35, .21], [-.05, .49, .31, .13]]) ball(r, '#8cab83', x, y, z, g).scale.z = .3; register(g, 'globe');
+            g = group('drawer', -2, 0, -1.22); box(1.15, 1.65, 1.23, '#bda4ca', 0, .83, 0, g); for (let i = 0; i < 3; i++) {box(1.05, .46, .05, '#d8c8e5', 0, .3 + i * .51, .65, g); box(.3, .05, .07, '#a08465', 0, .3 + i * .51, .705, g)} register(g, 'drawer');
+            g = group('ticket', 2.9, 1.7, -2.9); box(.1, 1.1, .1, '#b38d70', 0, 1, 0, g); box(.8, .06, .55, '#c9a583', 0, .46, 0, g); box(.95, .67, .06, '#f1c393', 0, 1.6, 0, g); panel(.84, .56, text(['PALERMO', 'SPEAKER'], '#f1c393'), 0, 1.6, .036, g); register(g, 'ticket'); box(.95, .12, .85, '#e1c19c', 3.3, .78, 1.3); for (let x of [2.97, 3.63]) for (let z of [1.02, 1.58]) box(.07, .75, .07, '#b69b80', x, .35, z); g = group('key', 3.3, .89, 1.28); mesh(new T.TorusGeometry(.12, .035, 10, 24), '#d3ad65', 0, 0, 0, g).rotation.x = Math.PI / 2; box(.3, .065, .06, '#d3ad65', .23, 0, 0, g); box(.045, .06, .12, '#d3ad65', .32, 0, .06, g); register(g, 'key');
+            function plant(x, y, z, s) {let p = new T.Group(); p.position.set(x, y, z); p.scale.setScalar(s); scene.add(p); cyl(.25, .42, '#d4a39d', 0, .21, 0, p); cyl(.22, .02, '#75614e', 0, .43, 0, p); for (let i = 0; i < 7; i++) {let a = i * 2.4, o = ball(.23, '#7fa28a', Math.cos(a) * .2, .67 + i % 3 * .17, Math.sin(a) * .2, p); o.scale.set(.55, 1.7, .55); o.rotation.z = Math.cos(a) * .5} } plant(-3.7, 0, 2, 1.5); plant(3.75, 0, -2.65, 1.6); plant(-3.55, 2.65, -3.03, .55); for (let i = 0; i < 5; i++)box(.14, .35 + i % 2 * .1, .35, ['#a697c0', '#d6b4aa', '#b6c79f'][i % 3], -2.1 + i * .16, 2.85, -3); cyl(.15, .33, '#eee4d5', 1.02, 2.25, -.8); cyl(.12, .01, '#72584b', 1.02, 2.42, -.8); mesh(new T.TorusGeometry(.1, .024, 8, 24), '#eee4d5', 1.18, 2.25, -.8);
+            let index = 0, views = [[9, 8.2, 11], [11, 8, 7], [7, 9.5, 12]], hover = null; const ray = new T.Raycaster(), pointer = new T.Vector2(); function pick(e) {let r = renderer.domElement.getBoundingClientRect(); pointer.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1); ray.setFromCamera(pointer, camera); return ray.intersectObjects(targets, false)[0]?.object.userData.k} renderer.domElement.addEventListener('pointermove', e => {hover = pick(e) || null; stage.style.cursor = hover ? 'pointer' : 'default'; let tip = document.getElementById('hover'); tip.textContent = hover ? discoveries[hover][0] + ' · click to discover' : ''; tip.style.opacity = hover ? '1' : '0'}); renderer.domElement.addEventListener('pointerleave', () => {hover = null; document.getElementById('hover').style.opacity = 0}); let down; renderer.domElement.addEventListener('pointerdown', e => down = [e.clientX, e.clientY]); renderer.domElement.addEventListener('pointerup', e => {if (down && Math.hypot(e.clientX - down[0], e.clientY - down[1]) < 12) {let k = pick(e); if (k) window.discover(k)} down = null}); document.getElementById('view').onclick = () => index = (index + 1) % views.length;
+            function resize() {let w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h); let a = w / h, s = w < 600 ? 6.5 : 5.65; camera.left = -s * a; camera.right = s * a; camera.top = s; camera.bottom = -s; camera.updateProjectionMatrix()} new ResizeObserver(resize).observe(stage); resize(); camera.position.set(...views[0]); camera.lookAt(0, 1.65, 0); const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches; let time = 0, visible = true; new IntersectionObserver(es => {visible = es[0].isIntersecting}).observe(stage); function render() {requestAnimationFrame(render); if (!visible) return; camera.position.lerp(new T.Vector3(...views[index]), reduced ? 1 : .05); camera.lookAt(0, 1.65, 0); if (!reduced) {time += .016; groups.robot.rotation.y = Math.sin(time * .65) * .06; groups.globe.rotation.y = Math.sin(time * .13) * .2} Object.entries(groups).forEach(([k, g]) => {let s = k === hover ? 1.045 : 1; g.scale.lerp(new T.Vector3(s, s, s), .13)}); renderer.render(scene, camera)} render(); window.studioReady = true; document.getElementById('loading').style.display = 'none'
+        } catch (e) {document.getElementById('loading').innerHTML = 'The 3D studio is unavailable here.<br>Use the object buttons or scroll down: all experience remains visible.'; console.error(e)}
+    </script><noscript>
+        <p class="wrap">The 3D game requires JavaScript. All experience, projects, skills and education are visible on
+            this page without playing.</p>
+    </noscript>
+</body>
+
+</html>
